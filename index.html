@@ -1,535 +1,472 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abdelrahman Medhat | Flutter Developer</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root {
-            --primary: #027dfd; /* Flutter Blue */
-            --primary-dark: #01579b;
-            --bg: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --card-bg: #ffffff;
-            --border: #f3f4f6;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
         }
 
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 70px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10%;
-            background: rgba(255, 255, 255, 0.85);
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .logo {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
+        .text-gradient {
+            background: linear-gradient(to right, #60a5fa, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
+        .mesh-gradient {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.15) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(29, 78, 216, 0.1) 0, transparent 50%);
         }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: var(--transition);
+        .blob-animation {
+            animation: blob 7s infinite alternate;
         }
 
-        .nav-links a:hover {
-            color: var(--primary);
+        @keyframes blob {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
         }
 
-        /* Hero */
-        #hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 10%;
-            gap: 4rem;
-            background: radial-gradient(circle at 90% 10%, #eff6ff 0%, transparent 40%);
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-            animation: slideUp 0.8s ease-out;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .profile-blob {
-            width: 320px;
-            height: 320px;
-            background: var(--primary);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            overflow: hidden;
-            border: 4px solid white;
-            box-shadow: var(--shadow-md);
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .profile-blob img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 0.8rem 1.8rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            transition: var(--transition);
-            font-size: 0.95rem;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(2, 125, 253, 0.3); }
-
-        /* General Section Styling */
-        section { padding: 100px 10%; }
-        .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .section-header p { color: var(--text-muted); font-size: 1rem; }
-
-        /* Skills Expansion */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        .skill-card {
-            background: #f9fafb;
-            padding: 2rem;
-            border-radius: 1.25rem;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-        }
-        .skill-card:hover {
-            background: white;
-            border-color: var(--primary);
-            box-shadow: var(--shadow-md);
-            transform: scale(1.02);
-        }
-        .skill-card h4 { 
-            color: var(--primary); 
-            margin-bottom: 1.25rem; 
-            font-size: 0.9rem; 
-            text-transform: uppercase; 
-            display: flex; 
-            align-items: center; 
-            gap: 0.5rem;
-            letter-spacing: 0.05em;
-        }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .tag { 
-            background: white; 
-            padding: 6px 12px; 
-            border-radius: 8px; 
-            font-size: 0.85rem; 
-            border: 1px solid var(--border); 
-            font-weight: 500; 
-            transition: var(--transition);
-        }
-        .tag:hover { background: var(--primary); color: white; border-color: var(--primary); }
-
-        /* Project Cards */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: #fff;
-            border-radius: 1.25rem;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary);
-        }
-
-        .project-img-wrapper {
-            position: relative;
-            padding-top: 56%;
-            background: #f9fafb;
-            overflow: hidden;
-        }
-
-        .project-img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .project-card:hover .project-img {
-            transform: scale(1.05);
-        }
-
-        .project-content { padding: 1.5rem; flex-grow: 1; }
-        .project-category { font-size: 0.75rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 0.5rem; }
-        .project-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
-        .project-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; height: 3em; overflow: hidden; }
-
-        /* Store Badges */
-        .store-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: auto;
-        }
-
-        .badge-link {
-            display: inline-flex;
-            align-items: center;
-            background: #000;
+        .filter-btn.active {
+            background-color: #2563eb;
             color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: var(--transition);
-            min-width: 135px;
+            border-color: #2563eb;
         }
 
-        .badge-link:hover { opacity: 0.8; transform: scale(1.05); }
-
-        .badge-icon { width: 20px; height: 20px; margin-right: 8px; }
-        .badge-text { display: flex; flex-direction: column; line-height: 1.2; }
-        .badge-text span:first-child { font-size: 0.6rem; text-transform: uppercase; opacity: 0.8; }
-        .badge-text span:last-child { font-size: 0.85rem; font-weight: 700; }
-
-        /* Contact Section */
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+        .store-badge {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .contact-card {
-            background: var(--primary);
-            color: white;
-            padding: 4rem 2rem;
-            border-radius: 2.5rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-        }
-
-        .contact-options {
-            display: none;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2.5rem;
-            animation: slideUp 0.4s ease-out;
-        }
-
-        .contact-options.show { display: grid; }
-
-        .contact-item {
+        .store-badge:hover {
+            transform: translateY(-2px);
             background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 1.25rem;
-            text-decoration: none;
-            color: white;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            word-break: break-all;
-        }
-
-        .contact-item:hover { background: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
-        .contact-item span { font-size: 0.85rem; font-weight: 600; }
-
-        /* Reveal Utility */
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s all cubic-bezier(0.4, 0, 0.2, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) {
-            section { padding: 60px 5%; }
-            #hero { flex-direction: column-reverse; text-align: center; padding-top: 100px; height: auto; padding-bottom: 60px; }
-            .hero-content h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            .profile-blob { width: 280px; height: 280px; }
+            border-color: rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
-<body>
+<body class="mesh-gradient min-h-screen">
 
-    <nav>
-        <div class="logo">AM.DEV</div>
-        <ul class="nav-links">
-            <li><a href="#hero">Home</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass h-16 flex items-center">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-extrabold tracking-tighter flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <span class="text-white text-sm">AM</span>
+                </div>
+                <span>DEV.</span>
+            </div>
+            
+            <ul class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <li><a href="#hero" class="hover:text-blue-400 transition-colors">Home</a></li>
+                <li><a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a></li>
+                <li><a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a></li>
+                <li><a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a></li>
+            </ul>
+
+            <a href="#contact" class="hidden md:block bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105">
+                Work with me
+            </a>
+        </div>
     </nav>
 
-    <section id="hero">
-        <div class="hero-content">
-            <h1>Abdelrahman <br><span style="color: var(--primary)">Medhat</span></h1>
-            <p>Experienced Flutter Developer specialized in Mobile and Cloud Computing. I transform complex problems into high-performance mobile experiences.</p>
-            <div style="display: flex; gap: 1rem; justify-content: inherit;">
-                <a href="#projects" class="btn btn-primary">Portfolio</a>
-                <a href="#contact" class="btn" style="border: 1px solid var(--border)">Hire Me</a>
-            </div>
-        </div>
-        <div class="profile-blob">
-            <img src="assets/cropped_image.jpg" alt="Abdelrahman Medhat Profile">
-        </div>
-    </section>
-
-    <section id="skills" class="reveal">
-        <div class="section-header">
-            <h2>Technical Stack</h2>
-            <p>Mastering mobile engineering with 2+ years of professional experience</p>
-        </div>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h4><i data-lucide="code"></i> Languages</h4>
-                <div class="skill-tags">
-                    <span class="tag">Dart</span><span class="tag">Kotlin</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">C++</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <h4><i data-lucide="layers"></i> Flutter Core</h4>
-                <div class="skill-tags">
-                    <span class="tag">BLoC</span><span class="tag">GetX</span><span class="tag">Firebase</span><span class="tag">Google Maps</span><span class="tag">FlutterFlow</span><span class="tag">Localization</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <h4><i data-lucide="database"></i> Persistence</h4>
-                <div class="skill-tags">
-                    <span class="tag">SQLite</span><span class="tag">Hive</span><span class="tag">Secure Storage</span><span class="tag">Floor</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <h4><i data-lucide="shield-check"></i> Quality</h4>
-                <div class="skill-tags">
-                    <span class="tag">Clean Architecture</span><span class="tag">SOLID</span><span class="tag">MVC</span><span class="tag">Unit Testing</span><span class="tag">CI/CD</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="reveal">
-        <div class="section-header">
-            <h2>Featured Projects</h2>
-        </div>
-        <div class="projects-grid">
-            
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="assets/appone.jpg" alt="Buzz App" class="project-img">
-                </div>
-                <div class="project-content">
-                    <span class="project-category">Social/Food Ecosystem</span>
-                    <h3 class="project-title">Buzz App</h3>
-                    <p class="project-desc">A feature-rich platform for real-time food ordering and social interaction.</p>
-                    <div class="store-links">
-                        <a href="#" class="badge-link">
-                            <svg class="badge-icon" viewBox="0 0 512 512"><path fill="#607D8B" d="M12 441.9L298.5 256 12 70.1V441.9z"/><path fill="#4CAF50" d="M298.5 256L12 70.1c-4.4 2.5-7.3 7.3-7.3 12.8v346.2c0 5.5 2.9 10.3 7.3 12.8L298.5 256z"/><path fill="#FFC107" d="M410.6 189.7L12 70.1l286.5 185.9 112.1-66.3z"/><path fill="#F44336" d="M410.6 322.3l-112.1-66.3L12 441.9l398.6-119.6z"/></svg>
-                            <div class="badge-text"><span>Get it on</span><span>Google Play</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="assets/apptwo.jpg" alt="Real Link" class="project-img">
-                </div>
-                <div class="project-content">
-                    <span class="project-category">Real Estate</span>
-                    <h3 class="project-title">Real Link</h3>
-                    <p class="project-desc">Interactive property search app with Google Maps integration and filtering.</p>
-                    <div class="store-links">
-                        <a href="#" class="badge-link">
-                            <svg class="badge-icon" viewBox="0 0 512 512"><path fill="#607D8B" d="M12 441.9L298.5 256 12 70.1V441.9z"/><path fill="#4CAF50" d="M298.5 256L12 70.1c-4.4 2.5-7.3 7.3-7.3 12.8v346.2c0 5.5 2.9 10.3 7.3 12.8L298.5 256z"/><path fill="#FFC107" d="M410.6 189.7L12 70.1l286.5 185.9 112.1-66.3z"/><path fill="#F44336" d="M410.6 322.3l-112.1-66.3L12 441.9l398.6-119.6z"/></svg>
-                            <div class="badge-text"><span>Get it on</span><span>Google Play</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="assets/appthree.jpg" alt="Naga7" class="project-img">
-                </div>
-                <div class="project-content">
-                    <span class="project-category">E-Learning</span>
-                    <h3 class="project-title">Naga7</h3>
-                    <p class="project-desc">A learning platform connecting students with courses and companies.</p>
-                    <div class="store-links">
-                        <a href="#" class="badge-link" style="background: #111;">
-                            <svg class="badge-icon" viewBox="0 0 384 512" fill="white"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.6-76.4-19.1-34.8.7-67 20.1-85 51.5-35.1 61.2-9 151 25.1 199.6 17 24.3 37.1 51.3 64.1 50.3 25.4-1 35.1-16.1 65.5-16.1 30.5 0 39.4 16.1 65.5 15.1 27.8-1 45.4-24.3 62.3-48.7 19.6-28.3 27.7-55.7 28-56.5-1.1-.3-53.9-20.7-54-80.4zM249 71.8c15.4-18.6 25.9-44.4 23.1-70.1-23 1-51 15.5-67.4 34.4-14.8 16.8-27.7 43.1-24.3 68 25.8 2 52.8-13.7 68.6-32.3z"/></svg>
-                            <div class="badge-text"><span>Download on</span><span>App Store</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="assets/appfour.jpg" alt="Motaqaad" class="project-img">
-                </div>
-                <div class="project-content">
-                    <span class="project-category">Finance/Retirement</span>
-                    <h3 class="project-title">Motaqaad</h3>
-                    <p class="project-desc">Support system for retirees with investment and service tracking.</p>
-                    <div class="store-links">
-                        <a href="#" class="badge-link">
-                            <svg class="badge-icon" viewBox="0 0 512 512"><path fill="#607D8B" d="M12 441.9L298.5 256 12 70.1V441.9z"/><path fill="#4CAF50" d="M298.5 256L12 70.1c-4.4 2.5-7.3 7.3-7.3 12.8v346.2c0 5.5 2.9 10.3 7.3 12.8L298.5 256z"/><path fill="#FFC107" d="M410.6 189.7L12 70.1l286.5 185.9 112.1-66.3z"/><path fill="#F44336" d="M410.6 322.3l-112.1-66.3L12 441.9l398.6-119.6z"/></svg>
-                            <div class="badge-text"><span>Get it on</span><span>Google Play</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="assets/appfive.jpg" alt="Pets Planet" class="project-img">
-                </div>
-                <div class="project-content">
-                    <span class="project-category">E-Commerce</span>
-                    <h3 class="project-title">Pets Planet</h3>
-                    <p class="project-desc">Complete shop for pet care with inventory and order tracking.</p>
-                    <div class="store-links">
-                        <a href="#" class="badge-link">
-                            <svg class="badge-icon" viewBox="0 0 512 512"><path fill="#607D8B" d="M12 441.9L298.5 256 12 70.1V441.9z"/><path fill="#4CAF50" d="M298.5 256L12 70.1c-4.4 2.5-7.3 7.3-7.3 12.8v346.2c0 5.5 2.9 10.3 7.3 12.8L298.5 256z"/><path fill="#FFC107" d="M410.6 189.7L12 70.1l286.5 185.9 112.1-66.3z"/><path fill="#F44336" d="M410.6 322.3l-112.1-66.3L12 441.9l398.6-119.6z"/></svg>
-                            <div class="badge-text"><span>Get it on</span><span>Google Play</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-img-wrapper">
-                    <img src="assets/appsix.jpg" alt="Step2English" class="project-img">
-                </div>
-                <div class="project-content">
-                    <span class="project-category">Education</span>
-                    <h3 class="project-title">Step2English</h3>
-                    <p class="project-desc">Language learning platform with interactive lesson tools.</p>
-                    <div class="store-links">
-                        <a href="#" class="badge-link" style="background: #111;">
-                            <svg class="badge-icon" viewBox="0 0 384 512" fill="white"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.6-76.4-19.1-34.8.7-67 20.1-85 51.5-35.1 61.2-9 151 25.1 199.6 17 24.3 37.1 51.3 64.1 50.3 25.4-1 35.1-16.1 65.5-16.1 30.5 0 39.4 16.1 65.5 15.1 27.8-1 45.4-24.3 62.3-48.7 19.6-28.3 27.7-55.7 28-56.5-1.1-.3-53.9-20.7-54-80.4zM249 71.8c15.4-18.6 25.9-44.4 23.1-70.1-23 1-51 15.5-67.4 34.4-14.8 16.8-27.7 43.1-24.3 68 25.8 2 52.8-13.7 68.6-32.3z"/></svg>
-                            <div class="badge-text"><span>Download on</span><span>App Store</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <section id="contact" class="reveal">
-        <div class="contact-container">
-            <div class="contact-card">
-                <h2>Let's connect</h2>
-                <p style="opacity: 0.9; margin-bottom: 2rem;">Ready to collaborate on innovative mobile solutions.</p>
-                <button onclick="toggleContact()" class="btn" style="background: white; color: var(--primary);">Contact Details <i data-lucide="chevron-down" id="arrow"></i></button>
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen pt-32 pb-20 px-6">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="flex-1 max-w-2xl text-center lg:text-left">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+                    Flutter Expert & Cloud Architect
+                </span>
+                <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
+                    Abdelrahman <br><span class="text-gradient">Medhat</span>
+                </h1>
+                <p class="text-gray-400 text-lg md:text-xl mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    Experienced Flutter Developer specialized in Mobile and Cloud Computing. Transforming pharmaceutical, medical, and marketplace challenges into high-performance mobile experiences.
+                </p>
                 
-                <div class="contact-options" id="contactOptions">
-                    <a href="mailto:abdelrahmanmedhat1824@gmail.com" class="contact-item">
-                        <i data-lucide="mail"></i>
-                        <span>abdelrahmanmedhat1824@gmail.com</span>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+                    <a href="#projects" class="bg-white text-black px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-50 transition-all group">
+                        Portfolio
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="tel:01142995709" class="contact-item">
-                        <i data-lucide="phone"></i>
-                        <span>+2 011 4299 5709</span>
+                    <a href="#contact" class="border border-white/10 glass px-8 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-white/5 transition-all">
+                        Hire Me
                     </a>
-                    <a href="https://www.linkedin.com/in/abdelrahman-medhat-3b6546242/" target="_blank" class="contact-item">
-                        <i data-lucide="linkedin"></i>
-                        <span>LinkedIn</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-8 py-8 border-t border-white/5">
+                    <div>
+                        <div class="text-3xl font-bold">10+</div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Live Apps</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">4.9</div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Avg Rating</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-bold">100%</div>
+                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold">Success</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute inset-0 bg-blue-600/20 blur-3xl rounded-full"></div>
+                <div class="w-64 h-64 md:w-80 md:h-80 relative z-10 overflow-hidden border-4 border-white/10 blob-animation bg-blue-600">
+                    <img src="assets/a.jpg" alt="Abdelrahman Medhat Profile" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 reveal">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Technical Stack</h2>
+                <p class="text-gray-500 max-w-2xl mx-auto">Mastering mobile engineering with a focus on Clean Architecture and Scalability</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Languages -->
+                <div class="glass p-8 rounded-3xl group hover:border-blue-500/50 transition-all">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 text-blue-500">
+                        <i data-lucide="code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Dart</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Kotlin</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Java</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Python</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">C++</span>
+                    </div>
+                </div>
+
+                <!-- Flutter Core -->
+                <div class="glass p-8 rounded-3xl group hover:border-blue-500/50 transition-all">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 text-purple-500">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Flutter Core</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">BLoC</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">GetX</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Firebase</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Google Maps</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">FlutterFlow</span>
+                    </div>
+                </div>
+
+                <!-- Quality -->
+                <div class="glass p-8 rounded-3xl group hover:border-blue-500/50 transition-all">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 text-green-500">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Engineering</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Clean Architecture</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">SOLID</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">MVC</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">Unit Testing</span>
+                        <span class="px-3 py-1 bg-white/5 rounded-lg text-sm border border-white/5">CI/CD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 reveal">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold mb-4">Featured Projects</h2>
+                    <p class="text-gray-500">A collection of industry-leading Flutter applications</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn active px-4 py-2 rounded-lg border border-white/10 text-sm font-semibold transition-all" onclick="filterProjects('all', this)">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-white/10 text-sm font-semibold transition-all" onclick="filterProjects('medical', this)">Medical</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-white/10 text-sm font-semibold transition-all" onclick="filterProjects('logistics', this)">Logistics</button>
+                    <button class="filter-btn px-4 py-2 rounded-lg border border-white/10 text-sm font-semibold transition-all" onclick="filterProjects('other', this)">Other</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                
+                <!-- DUAYA -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="medical">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/duaya.webp" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="DUAYA">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-8">
+                        <span class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-2 block">Pharmaceutical</span>
+                        <h3 class="text-xl font-bold mb-3">DUAYA</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Digital pharmaceutical ecosystem providing medical supplies across Egypt and KSA.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.apmo.doctorpharma" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/duaya/id6754818222" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dieaya Plus Business -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="medical">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appseven.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Dieaya Plus Business">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-2 block">B2B / Medical</span>
+                        <h3 class="text-xl font-bold mb-3">دعاية بلس أعمال</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Advanced business solution for the pharmaceutical market providing management and supply tools.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.dieayaplus.market&hl=ar" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/fi/app/%D8%AF%D8%B9%D8%A7%D9%8A%D8%A9-%D8%A8%D9%84%D8%B3-%D8%A3%D8%B9%D9%85%D8%A7%D9%84/id6633412575" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zajel -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="logistics">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appnine.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Zajel">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-orange-500 text-xs font-bold uppercase tracking-widest mb-2 block">Logistics / Delivery</span>
+                        <h3 class="text-xl font-bold mb-3">Zajel - زاجل</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">A smart logistics application built to streamline transport and supply within the network.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.zajel.varx" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/zajel-%D8%B2%D8%A7%D8%AC%D9%84/id6751598026" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fazara Market -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="other">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appfive.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Fazara Market">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-pink-500 text-xs font-bold uppercase tracking-widest mb-2 block">E-Commerce</span>
+                        <h3 class="text-xl font-bold mb-3">Fazara Market</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">A comprehensive shopping platform providing seamless digital discovery and product management.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.fazara.market" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/fazara-market/id6756235412" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duaya Care -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="medical">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appeight.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Duaya Care">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-2 block">Patient Care</span>
+                        <h3 class="text-xl font-bold mb-3">Duaya Care</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">A patient-centric application designed for managing pharmaceutical needs and healthcare services.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.salamtakpharmacy.exm" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/duaya-care/id6755442415" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duaya Care Doctor -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="medical">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appthree.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Duaya Care Doctor">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-2 block">Medical / Provider</span>
+                        <h3 class="text-xl font-bold mb-3">Duaya Care Doctor</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Specialized platform for healthcare providers to manage patient prescriptions and medical references.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.salamtakprovider.duaya" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/duaya-care-provider/id6755972274" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duam -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="logistics">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appone.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Duam">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-orange-500 text-xs font-bold uppercase tracking-widest mb-2 block">Logistics / Support</span>
+                        <h3 class="text-xl font-bold mb-3">Duam</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Supply chain tool helping distributors and pharmacists connect efficiently within the medical network.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.duam.duaya" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/duam/id6755964484" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duaya Index -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="medical">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appfour.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="Duaya Index">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-2 block">Pharmaceutical Directory</span>
+                        <h3 class="text-xl font-bold mb-3">Duaya Index</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">A comprehensive pharmaceutical guide for searching medical products and real-time market prices.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.duayaIndex.duaya" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                            <a href="https://apps.apple.com/us/app/duaya-index/id6753917042" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="apple" class="w-4 h-4"></i>
+                                <span class="text-xs font-bold">App Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DUAYA.AI -->
+                <div class="project-item glass rounded-3xl overflow-hidden group" data-category="medical">
+                    <div class="aspect-video bg-gray-900 relative">
+                        <img src="assets/appsix.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-all duration-700" alt="DUAYA.AI">
+                    </div>
+                    <div class="p-8">
+                        <span class="text-purple-500 text-xs font-bold uppercase tracking-widest mb-2 block">AI / Medical</span>
+                        <h3 class="text-xl font-bold mb-3">DUAYA.AI</h3>
+                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Artificial Intelligence assistant optimized for pharmaceutical supply chain and medical decision support.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://play.google.com/store/apps/details?id=com.duayaAi.duaya" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 store-badge">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-green-500"></i>
+                                <span class="text-xs font-bold">Play Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 reveal">
+        <div class="container mx-auto max-w-4xl">
+            <div class="glass p-12 rounded-[3rem] text-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-600/20 blur-3xl rounded-full"></div>
+                
+                <h2 class="text-4xl font-bold mb-4">Let's build the future together.</h2>
+                <p class="text-gray-400 mb-10 mx-auto">Available for high-impact mobile and cloud projects.</p>
+                
+                <button onclick="toggleContact()" class="bg-white text-black px-8 py-4 rounded-xl font-bold inline-flex items-center gap-2 hover:bg-blue-50 transition-all mb-10">
+                    Contact Info <i data-lucide="chevron-down" id="arrow"></i>
+                </button>
+                
+                <div id="contactOptions" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4 text-left animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <a href="mailto:abdelrahmanmedhat1824@gmail.com" class="p-6 bg-white/5 border border-white/5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-all">
+                        <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-500"><i data-lucide="mail"></i></div>
+                        <div>
+                            <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Email</div>
+                            <div class="text-sm font-semibold truncate max-w-[200px]">abdelrahmanmedhat1824@gmail.com</div>
+                        </div>
                     </a>
-                    <a href="https://github.com/AbdelrahmanMedhat18" target="_blank" class="contact-item">
-                        <i data-lucide="github"></i>
-                        <span>GitHub</span>
+                    <a href="tel:01142995709" class="p-6 bg-white/5 border border-white/5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-all">
+                        <div class="w-10 h-10 bg-green-600/20 rounded-xl flex items-center justify-center text-green-500"><i data-lucide="phone"></i></div>
+                        <div>
+                            <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Phone</div>
+                            <div class="text-sm font-semibold">+2 011 4299 5709</div>
+                        </div>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abdelrahman-medhat-3b6546242/" target="_blank" class="p-6 bg-white/5 border border-white/5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-all">
+                        <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400"><i data-lucide="linkedin"></i></div>
+                        <div>
+                            <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Connect</div>
+                            <div class="text-sm font-semibold">LinkedIn Profile</div>
+                        </div>
+                    </a>
+                    <a href="https://github.com/AbdelrahmanMedhat18" target="_blank" class="p-6 bg-white/5 border border-white/5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-all">
+                        <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-white"><i data-lucide="github"></i></div>
+                        <div>
+                            <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Code</div>
+                            <div class="text-sm font-semibold">GitHub</div>
+                        </div>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer style="padding: 4rem 10%; text-align: center; border-top: 1px solid var(--border)">
-        <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2024 Abdelrahman Medhat | Giza, Egypt</p>
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/5 text-center text-gray-600 text-sm">
+        <p>&copy; 2024 Abdelrahman Medhat | Giza, Egypt</p>
     </footer>
 
     <script>
@@ -538,17 +475,35 @@
         function toggleContact() {
             const options = document.getElementById('contactOptions');
             const arrow = document.getElementById('arrow');
-            options.classList.toggle('show');
-            arrow.style.transform = options.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+            options.classList.toggle('hidden');
+            arrow.style.transform = options.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
         }
 
-        const revealObserver = new IntersectionObserver((entries) => {
+        function filterProjects(category, btn) {
+            const items = document.querySelectorAll('.project-item');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    setTimeout(() => item.style.opacity = '1', 10);
+                } else {
+                    item.style.opacity = '0';
+                    setTimeout(() => item.style.display = 'none', 300);
+                }
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
