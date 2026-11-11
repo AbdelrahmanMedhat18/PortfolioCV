@@ -1,12 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth scroll-pt-32">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abdelrahman Medhat | Flutter Developer</title>
+    
+    <!-- Custom Favicon (AM Logo) - Base64 encoded for maximum compatibility -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjMjU2M2ViIi8+PHRleHQgeD0iNTAiIHk9IjY3IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDUiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+QU08L3RleHQ+PC9zdmc+">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Using jsdelivr instead of unpkg to prevent loading freezes -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -92,151 +97,130 @@
         .project-overlay {
             background: linear-gradient(to top, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.4) 50%, transparent 100%);
         }
+
+        /* Active Navigation Link Style */
+        .nav-active {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body class="mesh-gradient min-h-screen">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 glass h-20 flex items-center">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="text-xl font-extrabold tracking-tighter flex items-center gap-2">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
-                    <span class="text-white text-sm">AM</span>
+    <nav class="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-300">
+        <div class="w-full max-w-5xl glass rounded-2xl flex flex-col md:flex-row items-center justify-between px-4 sm:px-6 py-3 pointer-events-auto border border-white/10 shadow-2xl shadow-black/50 relative">
+            <div class="flex items-center justify-between w-full md:w-auto">
+                <div class="text-xl font-extrabold tracking-tighter flex items-center gap-2">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20">
+                        <span class="text-white text-xs sm:text-sm">AM</span>
+                    </div>
+                    <span class="inline-block font-bold text-white text-base sm:text-lg">Abdelrahman</span>
                 </div>
-                <span class="hidden sm:inline-block font-bold">Abdelrahman</span>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-toggle" class="md:hidden text-gray-400 hover:text-white p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
             </div>
             
-            <ul class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
-                <li><a href="#hero" class="hover:text-blue-400 transition-colors">Home</a></li>
-                <li><a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a></li>
-                <li><a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a></li>
-                <li><a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a></li>
-                <li><a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a></li>
+            <!-- Desktop & Mobile Links -->
+            <ul id="nav-links" class="hidden md:flex flex-col md:flex-row w-full md:w-auto gap-1 bg-[#111827] md:bg-transparent p-3 md:p-1 rounded-2xl border border-white/10 md:border-none shadow-2xl md:shadow-none mt-2 md:mt-0 absolute md:relative top-[110%] left-0 md:top-auto z-50">
+                <li><a href="#hero" class="nav-item nav-active px-4 py-3 md:py-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white text-sm font-semibold transition-all flex items-center w-full">Home</a></li>
+                <li><a href="#education" class="nav-item px-4 py-3 md:py-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white text-sm font-semibold transition-all flex items-center w-full">Education</a></li>
+                <li><a href="#skills" class="nav-item px-4 py-3 md:py-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white text-sm font-semibold transition-all flex items-center w-full">Skills</a></li>
+                <li><a href="#projects" class="nav-item px-4 py-3 md:py-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white text-sm font-semibold transition-all flex items-center w-full">Projects</a></li>
+                <li><a href="#contact" class="nav-item px-4 py-3 md:py-2 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white text-sm font-semibold transition-all flex items-center w-full">Contact</a></li>
+                
+                <!-- Mobile Download CV -->
+                <li class="md:hidden mt-2 border-t border-white/10 pt-2">
+                    <a href="assets/resume.pdf" download="Abdelrahman_Medhat_CV.pdf" class="flex justify-center bg-blue-600 hover:bg-blue-500 px-4 py-3 rounded-xl text-sm font-bold text-white transition-all items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> 
+                        Download CV
+                    </a>
+                </li>
             </ul>
 
-            <a href="#contact" class="bg-blue-600 hover:bg-blue-700 px-6 py-2.5 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-lg shadow-blue-600/25">
-                Work with me
+            <!-- Desktop Download CV -->
+            <a href="assets/resume.pdf" download="Abdelrahman_Medhat_CV.pdf" class="hidden md:flex bg-blue-600 hover:bg-blue-500 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white transition-all transform hover:-translate-y-0.5 shadow-lg shadow-blue-600/30 items-center gap-2 group">
+                <svg class="w-4 h-4 hidden sm:block group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                Download CV
             </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="min-h-screen flex items-center pt-20 px-6">
-        <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div class="flex-1 max-w-2xl text-center lg:text-left">
-                <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-8 border border-blue-500/20">
+    <section id="hero" class="min-h-screen flex items-center pt-32 pb-12 px-6">
+        <div class="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+            <div class="w-full lg:w-1/2 text-center lg:text-left flex flex-col items-center lg:items-start">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6 border border-blue-500/20">
                     Senior Flutter Developer
                 </span>
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] mb-6">
-                    Abdelrahman <br><span class="text-gradient">Medhat</span>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-6">
+                    Abdelrahman <br class="hidden lg:block"><span class="text-gradient">Medhat</span>
                 </h1>
-                <p class="text-gray-400 text-lg md:text-xl mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                    Transforming pharmaceutical and logistics challenges into high-performance mobile experiences using <b>Dart, GetX, and Clean Architecture.</b>
+                <p class="text-gray-400 text-base md:text-lg mb-10 leading-relaxed max-w-xl">
+                    Flutter Developer with 2+ years of experience building scalable, cross-platform mobile applications. Delivered 15+ production-ready apps across healthcare, e-commerce, and logistics using <b>Flutter, Dart, Clean Architecture, BLoC/Cubit, and GetX.</b>
                 </p>
                 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-16">
-                    <a href="#projects" class="bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-blue-50 transition-all group">
+                <div class="flex flex-col sm:flex-row gap-4 mb-12 w-full sm:w-auto justify-center lg:justify-start">
+                    <a href="#projects" class="bg-white text-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-blue-50 transition-all group w-full sm:w-auto">
                         Portfolio
                         <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                     </a>
-                    <a href="#contact" class="border border-white/10 glass px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/5 transition-all">
+                    <a href="#contact" class="border border-white/10 glass px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/5 transition-all w-full sm:w-auto">
                         Contact Me
                     </a>
                 </div>
 
-                <div class="grid grid-cols-3 gap-8 py-10 border-t border-white/5">
+                <div class="grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-lg py-8 border-t border-white/5 text-center lg:text-left">
                     <div>
-                        <div class="text-3xl font-bold">15+</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mt-1">Apps Shipped</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">15+</div>
+                        <div class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest font-bold">Apps Shipped</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold">GPA 3.4</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mt-1">Computer Science</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">3.4</div>
+                        <div class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest font-bold">GPA (CS)</div>
                     </div>
                     <div>
-                        <div class="text-3xl font-bold">100%</div>
-                        <div class="text-xs text-gray-500 uppercase tracking-wider font-semibold mt-1">Job Success</div>
+                        <div class="text-3xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">100%</div>
+                        <div class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest font-bold">Job Success</div>
                     </div>
                 </div>
             </div>
 
-            <div class="relative">
-                <div class="absolute inset-0 bg-blue-600/20 blur-[100px] rounded-full"></div>
-                <div class="w-72 h-72 md:w-96 md:h-96 relative z-10 overflow-hidden border-8 border-white/5 blob-animation bg-blue-600 shadow-2xl">
-                    <img src="assets/a.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop'" alt="Abdelrahman Medhat Profile" class="w-full h-full object-cover">
+            <div class="w-full lg:w-1/2 flex justify-center lg:justify-end mt-8 lg:mt-0">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-blue-600/20 blur-[100px] rounded-full"></div>
+                    <div class="w-72 h-72 md:w-96 md:h-96 lg:w-[32rem] lg:h-[32rem] relative z-10 overflow-hidden border-8 border-white/5 blob-animation bg-blue-600 shadow-2xl">
+                        <img src="assets/a.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop'" alt="Abdelrahman Medhat Profile" class="w-full h-full object-cover">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-24 px-6 reveal">
-        <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4">Professional Experience</h2>
-                <p class="text-gray-500">Transforming ideas into high-performance mobile experiences</p>
+    <!-- Education Section -->
+    <section id="education" class="py-24 px-6 reveal bg-white/[0.02]">
+        <div class="container mx-auto max-w-3xl">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold mb-4">Education</h2>
             </div>
-
-            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-blue-500 before:to-transparent">
-                
-                <!-- Duaya -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-blue-500 bg-slate-900 text-blue-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                        <i data-lucide="briefcase" class="w-5 h-5"></i>
+            
+            <div class="glass p-8 rounded-3xl border-l-4 border-l-blue-500 hover:bg-white/[0.05] transition-colors duration-300">
+                <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-4">
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Bachelor of Science in Computer Science</h3>
+                        <p class="text-blue-400 font-medium mt-1">Canadian International College</p>
                     </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[45%] glass p-6 rounded-2xl">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="font-bold text-white">Flutter Developer, Duaya</div>
-                            <time class="text-xs font-bold text-blue-500 uppercase">01/2025 - Present</time>
-                        </div>
-                        <div class="text-gray-400 text-sm mb-2 italic">Giza, Egypt</div>
-                        <p class="text-gray-500 text-xs leading-relaxed">Developing innovative healthcare and AI-driven applications (Duaya B2B, Partners, AI, and Index). Implementing Clean Architecture and GetX for maximum scalability.</p>
+                    <div class="bg-black/30 px-4 py-2 rounded-xl border border-white/5 inline-block md:text-right">
+                        <span class="text-gray-400 text-xs uppercase tracking-wider block mb-1">GPA</span>
+                        <span class="text-white font-bold">3.4 <span class="text-gray-500 text-sm">/ 4.0</span></span>
                     </div>
                 </div>
-
-                <!-- Digital 01 -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-slate-900 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                        <i data-lucide="globe" class="w-5 h-5"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[45%] glass p-6 rounded-2xl">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="font-bold text-white">Flutter Developer, Digital 01</div>
-                            <time class="text-xs font-bold text-gray-500 uppercase">01/2025 - 08/2025</time>
-                        </div>
-                        <div class="text-gray-400 text-sm mb-2 italic">Remote / UAE</div>
-                        <p class="text-gray-500 text-xs">Developed Dieaya Plus ecosystem (Customer & Business) using Flutter, GetX, and REST APIs.</p>
-                    </div>
-                </div>
-
-                <!-- Varx -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-slate-900 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                        <i data-lucide="zap" class="w-5 h-5"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[45%] glass p-6 rounded-2xl">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="font-bold text-white">Freelance Developer, Varx</div>
-                            <time class="text-xs font-bold text-gray-500 uppercase">07/2025 - 10/2025</time>
-                        </div>
-                        <div class="text-gray-400 text-sm mb-2 italic">Freelance</div>
-                        <p class="text-gray-500 text-xs">Built the full Zajel platform (Customer, Provider, Delivery) with Google Maps integration and route management.</p>
-                    </div>
-                </div>
-
-                <!-- T8nat & NIT -->
-                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-                    <div class="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-slate-900 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-                        <i data-lucide="code" class="w-5 h-5"></i>
-                    </div>
-                    <div class="w-[calc(100%-4rem)] md:w-[45%] glass p-6 rounded-2xl">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="font-bold text-white">Mobile Developer, T8nat / NIT</div>
-                            <time class="text-xs font-bold text-gray-500 uppercase">04/2024 - 12/2024</time>
-                        </div>
-                        <p class="text-gray-500 text-xs">Focused on Flutter framework, REST API integration with Laravel backends, and FlutterFlow rapid prototyping.</p>
-                    </div>
-                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Strong foundation in software engineering principles, algorithms, data structures, and database management. Specialized coursework in mobile application development and scalable software architecture.
+                </p>
             </div>
         </div>
     </section>
@@ -250,43 +234,51 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="glass p-8 rounded-3xl border-t-2 border-t-blue-500">
+                <div class="glass p-8 rounded-3xl border-t-2 border-t-blue-500 hover:-translate-y-1 transition-transform duration-300">
                     <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Languages</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Dart</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Kotlin</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Java</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Python</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300 transition-all cursor-default">Dart</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300 transition-all cursor-default">Kotlin</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300 transition-all cursor-default">Java</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300 transition-all cursor-default">Python</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300 transition-all cursor-default">Swift</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300 transition-all cursor-default">SQL</span>
                     </div>
                 </div>
 
-                <div class="glass p-8 rounded-3xl border-t-2 border-t-sky-400">
-                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Frameworks</h3>
+                <div class="glass p-8 rounded-3xl border-t-2 border-t-sky-400 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Flutter Ecosystem</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Flutter / GetX</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">BLoC</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">REST APIs</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Google Maps</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-sky-400/20 hover:border-sky-400/50 hover:text-sky-300 transition-all cursor-default">Flutter</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-sky-400/20 hover:border-sky-400/50 hover:text-sky-300 transition-all cursor-default">BLoC / Cubit</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-sky-400/20 hover:border-sky-400/50 hover:text-sky-300 transition-all cursor-default">GetX</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-sky-400/20 hover:border-sky-400/50 hover:text-sky-300 transition-all cursor-default">Riverpod</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-sky-400/20 hover:border-sky-400/50 hover:text-sky-300 transition-all cursor-default">Provider</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-sky-400/20 hover:border-sky-400/50 hover:text-sky-300 transition-all cursor-default">Google Maps SDK</span>
                     </div>
                 </div>
 
-                <div class="glass p-8 rounded-3xl border-t-2 border-t-purple-500">
-                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Engineering</h3>
+                <div class="glass p-8 rounded-3xl border-t-2 border-t-purple-500 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Architecture</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Clean Architecture</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">SOLID</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">CI/CD</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Git</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-300 transition-all cursor-default">Clean Architecture</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-300 transition-all cursor-default">SOLID Principles</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-300 transition-all cursor-default">MVVM / MVC</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-300 transition-all cursor-default">RESTful APIs</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-300 transition-all cursor-default">CI/CD Pipelines</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-300 transition-all cursor-default">Agile & Scrum</span>
                     </div>
                 </div>
 
-                <div class="glass p-8 rounded-3xl border-t-2 border-t-green-500">
-                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Databases</h3>
+                <div class="glass p-8 rounded-3xl border-t-2 border-t-green-500 hover:-translate-y-1 transition-transform duration-300">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">Data & Tools</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Firebase</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">SQLite</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Hive</span>
-                        <span class="text-xs px-2 py-1 bg-white/5 rounded border border-white/5">Floor</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 transition-all cursor-default">Firebase</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 transition-all cursor-default">SQLite / Floor</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 transition-all cursor-default">Hive / Isar</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 transition-all cursor-default">PostgreSQL</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 transition-all cursor-default">Postman</span>
+                        <span class="text-xs font-medium px-3 py-1.5 bg-white/5 rounded-lg border border-white/10 hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300 transition-all cursor-default">Git & GitHub</span>
                     </div>
                 </div>
             </div>
@@ -302,265 +294,326 @@
                     <p class="text-gray-500 max-w-xl">Every project built and delivered with excellence across medical, logistics, and marketplace sectors.</p>
                 </div>
                 <div class="flex flex-wrap gap-2 glass p-1.5 rounded-2xl">
-                    <button class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('all', this)">All</button>
-                    <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('medical', this)">Medical</button>
-                    <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('logistics', this)">Logistics</button>
-                    <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('other', this)">Other</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="projects-grid">
-                
-                <!-- 1. DUAYA B2B -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/duaya.webp" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="DUAYA B2B">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">B2B Platform</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-blue-400 transition-colors">DUAYA (B2B)</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Connects pharmacies, clinics, and labs with distributors across Egypt and KSA.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.apmo.doctorpharma" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/duaya/id6754818222" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Dieaya Plus Business -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appseven.jpg" onerror="this.src='https://images.unsplash.com/photo-1454165833767-027ffea9e77b?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="دعاية بلس أعمال">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-sky-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Business Management</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-sky-400 transition-colors">دعاية بلس أعمال</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Business dashboard for managing medical offers, analytics, and marketing campaigns.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.dieayaplus.market&hl=ar" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/fi/app/%D8%AF%D8%B9%D8%A7%D9%8A%D8%A9-%D8%A8%D9%84%D8%B3-%D8%A3%D8%B9%D9%85%D8%A7%D9%84/id6633412575" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. Dieaya Plus User -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/apptwo.jpg" onerror="this.src='https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Dieaya Plus User">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-red-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Consumer App</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-red-400 transition-colors">Dieaya Plus (User)</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Platform for users to discover and book medical offers and pharmaceutical discounts.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.dieayaplus.user&hl=ar" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/fi/app/dieaya-plus-%D8%AF%D8%B9%D8%A7%D9%8A%D8%A9-%D8%A8%D9%84%D8%B3/id6664065244" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. Zajel -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appnine.jpg" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Zajel">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-orange-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Logistics Ecosystem</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-orange-400 transition-colors">Zajel - زاجل</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Integrated logistics system (Customer, Provider, Delivery) with Google Maps tracking.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.zajel.varx" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/zajel-%D8%B2%D8%A7%D8%AC%D9%84/id6751598026" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. Duaya Care -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appeight.jpg" onerror="this.src='https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Duaya Care">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-teal-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Patient Care</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-teal-400 transition-colors">Duaya Care</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Pharmacy management and patient ordering system built with Flutter & Firebase.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.salamtakpharmacy.exm" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/duaya-care/id6755442415" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. Duaya Care Doctor -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appthree.jpg" onerror="this.src='https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Duaya Care Doctor">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-indigo-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Provider Portal</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-indigo-400 transition-colors">Duaya Care Doctor</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Healthcare provider tool for prescription management and patient health records.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.salamtakprovider.duaya" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/duaya-care-provider/id6755972274" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. DUAYA.AI -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appsix.jpg" onerror="this.src='https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="DUAYA.AI">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-purple-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">AI Assistant</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-purple-400 transition-colors">DUAYA.AI</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Medical AI assistant for smart diagnostics, voice prescriptions, and clinical support.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.duayaAi.duaya" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8. Duaya Index -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appfour.jpg" onerror="this.src='https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Duaya Index">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Medical Guide</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-blue-400 transition-colors">Duaya Index</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Complete pharmaceutical guide for products, alternatives, and localized prices.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.duayaIndex.duaya" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/duaya-index/id6753917042" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 9. Garnest -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="other">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=800&auto=format&fit=crop" class="project-card-image w-full h-full object-cover opacity-80" alt="Garnest">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Marketplace</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-emerald-400 transition-colors">Garnest</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">E-commerce marketplace platform built for a seamless digital shopping experience.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.garnest.duaya" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/garnest/id6758048279" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 10. Duam -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appone.jpg" onerror="this.src='https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Duam">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Supply Chain</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-orange-400 transition-colors">Duam</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Efficient logistics tool for pharmaceutical distribution and market supply monitoring.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.duam.duaya" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                            <a href="https://apps.apple.com/us/app/duam/id6755964484" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 11. Fazara Market -->
-                <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="other">
-                    <div class="aspect-[16/10] overflow-hidden relative">
-                        <img src="assets/appfive.jpg" onerror="this.src='https://images.unsplash.com/photo-1534452286304-a15fdb7a9d3d?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-cover opacity-80" alt="Fazara Market">
-                        <div class="absolute inset-0 project-overlay"></div>
-                        <div class="absolute bottom-6 left-8"><span class="bg-pink-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">E-Commerce</span></div>
-                    </div>
-                    <div class="p-8 pt-4">
-                        <h3 class="text-2xl font-extrabold mb-3 group-hover:text-pink-400 transition-colors">Fazara Market</h3>
-                        <p class="text-gray-400 text-sm mb-6 line-clamp-2">Complete digital shopping platform with optimized checkout and product discovery.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://play.google.com/store/apps/details?id=com.fazara.market" target="_blank" class="store-badge">
-                                <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
-                                <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+                <button class="filter-btn active px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('all', this)">All</button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('medical', this)">Medical</button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('logistics', this)">Logistics</button>
+                <button class="filter-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all" onclick="filterProjects('other', this)">Other</button>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="projects-grid">
+            
+            <!-- 1. Duam -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/duam-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Duam">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Enterprise</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-orange-400 transition-colors">Duam</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A complete enterprise solution for managing team tasks, attendance, and workflow seamlessly.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.duam.duaya" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/duam/id6755964484" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. دوايــا-DUAYA -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/duaya-cover.webp" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="DUAYA B2B">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-blue-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">B2B Platform</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-blue-400 transition-colors">دوايــا-DUAYA</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">The largest B2B pharmaceutical network connecting pharmacies and clinics with distributors.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.apmo.doctorpharma" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/duaya/id6754818222" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Garnest -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="other">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/garnest-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Garnest">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Real Estate</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-emerald-400 transition-colors">Garnest</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A real estate marketplace connecting property owners with potential buyers efficiently.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.garnest.duaya" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/garnest/id6758048279" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. شركاء دوايـــآ -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/duaya-partners-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="شركاء دوايـــآ">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-sky-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Partner Portal</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-sky-400 transition-colors">شركاء دوايـــآ</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A dedicated partner portal to manage orders, products, offers, and shipping operations.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.apmo.doctorpharmaseller" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/%D8%B4%D8%B1%D9%83%D8%A7%D8%A1-%D8%AF%D9%88%D8%A7%D9%8A%D9%80%D9%80%D9%80%D8%A2/id6768214554" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Duaya Care Doctor -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/duaya-doctor-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Duaya Care Doctor">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-indigo-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Provider Portal</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-indigo-400 transition-colors">Duaya Care Doctor</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A powerful consultation management app for healthcare service providers to track sessions.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.salamtakprovider.duaya" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/duaya-care-provider/id6755972274" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Duaya Care -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/duaya-care-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Duaya Care">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-teal-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Patient Care</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-teal-400 transition-colors">Duaya Care</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A patient-centric app for pharmacy discounts, prescriptions, and home healthcare services.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.salamtakpharmacy.exm" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/duaya-care/id6755442415" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Duaya Pharmacy -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/duaya-pharmacy-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Duaya Pharmacy">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-cyan-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Pharmacy Mgmt</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-cyan-400 transition-colors">Duaya Pharmacy</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A convenient platform for online pharmacy shopping, medicines, and healthcare essentials.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.duayapharma.duaya" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/duaya-pharmacy/id6760401912" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Fazara -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="other">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/fazara-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1534452286304-a15fdb7a9d3d?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Fazara">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-pink-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">E-Commerce</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-pink-400 transition-colors">Fazara</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A seamless hypermarket e-commerce platform combining online shopping with in-store reliability.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.fazara.market" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/fazara/id6756235412" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. Fazara Delivery -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/fazara-delivery-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1617462002344-0b73b5f00e00?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Fazara Delivery">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-yellow-500 text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Delivery</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-yellow-400 transition-colors">Fazara Delivery</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A fast and reliable delivery application connecting customers with drivers in real-time.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.fazara.delivery" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. Sawaed Medical -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="medical">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/sawaed-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Sawaed Medical">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-rose-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Medical EdTech</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-rose-400 transition-colors">Sawaed Medical</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">An educational platform connecting medical learners with expert instructors and courses.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://apps.apple.com/eg/app/sawaed-medical/id6829448812?l=ar#information" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. Zajel-زاجل -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/zajel-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Zajel-زاجل">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-orange-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Logistics Ecosystem</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-orange-400 transition-colors">Zajel-زاجل</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A comprehensive food and grocery delivery app offering a smart, fast shopping experience.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.zajel.varx&hl=en" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/eg/app/zajel-%D8%B2%D8%A7%D8%AC%D9%84/id6751598026" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 12. Zajel Provider -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/zajel-provider-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Zajel Provider">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Order Mgmt</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-amber-400 transition-colors">Zajel Provider</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">An order management platform for restaurants and stores to track and fulfill customer requests.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.zajelprovider.varx&hl=en" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 13. Zajel Delivery -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="logistics">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/zajel-delivery-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1557008075-7f2c5efa4cfd?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Zajel Delivery">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-red-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">Driver App</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-red-400 transition-colors">Zajel Delivery</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A dedicated driver application featuring order tracking and efficient route management.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.zajeldelivery.varx&hl=en" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 14. Dieaya Plus - دعاية بلس -->
+            <div class="project-item glass rounded-[2.5rem] overflow-hidden group border-white/5" data-category="other">
+                <div class="aspect-[16/10] overflow-hidden relative bg-black/20 p-4">
+                    <img src="assets/dieaya-plus-cover.jpg" onerror="this.src='https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop'" class="project-card-image w-full h-full object-contain opacity-90" alt="Dieaya Plus">
+                    <div class="absolute inset-0 project-overlay"></div>
+                    <div class="absolute bottom-6 left-8"><span class="bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">E-Commerce</span></div>
+                </div>
+                <div class="p-8 pt-4">
+                    <h3 class="text-2xl font-extrabold mb-3 group-hover:text-blue-400 transition-colors">Dieaya Plus - دعاية بلس</h3>
+                    <p class="text-gray-400 text-sm mb-6 line-clamp-2">A local market discovery app offering special discounts and seamless shopping experiences.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="https://play.google.com/store/apps/details?id=com.dieayaplus.user&hl=ar" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 512 512"><path fill="#fff" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l220.7-221.3 60.7 60.7L104.6 499z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Get it on</div><div class="text-[11px] font-bold leading-none">Google Play</div></div>
+                        </a>
+                        <a href="https://apps.apple.com/us/app/dieaya-plus-%D8%AF%D8%B9%D8%A7%D9%8A%D8%A9-%D8%A8%D9%84%D8%B3/id6664065244" target="_blank" class="store-badge">
+                            <svg class="w-4 h-4 mr-2" viewBox="0 0 384 512"><path fill="#fff" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+                            <div><div class="text-[7px] uppercase leading-none opacity-70">Download on</div><div class="text-[11px] font-bold leading-none">App Store</div></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
     <section id="contact" class="py-24 px-6 reveal">
         <div class="container mx-auto max-w-4xl">
             <div class="glass p-12 rounded-[3rem] text-center relative overflow-hidden">
@@ -580,11 +633,15 @@
                         <div><div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Phone</div><div class="text-sm font-semibold">+20 114 299 5709</div></div>
                     </a>
                     <a href="https://www.linkedin.com/in/AbdelrahmanMedhat18" target="_blank" class="p-6 bg-white/5 border border-white/5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-all">
-                        <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400"><i data-lucide="linkedin"></i></div>
+                        <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </div>
                         <div><div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Connect</div><div class="text-sm font-semibold">LinkedIn Profile</div></div>
                     </a>
                     <a href="https://github.com/AbdelrahmanMedhat18" target="_blank" class="p-6 bg-white/5 border border-white/5 rounded-2xl flex items-center gap-4 hover:bg-white/10 transition-all">
-                        <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-white"><i data-lucide="github"></i></div>
+                        <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </div>
                         <div><div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Code</div><div class="text-sm font-semibold">GitHub</div></div>
                     </a>
                 </div>
@@ -599,6 +656,25 @@
 
     <script>
         lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('flex');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth < 768) {
+                    navLinks.classList.add('hidden');
+                    navLinks.classList.remove('flex');
+                }
+            });
+        });
 
         function toggleContact() {
             const options = document.getElementById('contactOptions');
@@ -632,6 +708,32 @@
         }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Scrollspy for Navigation Links
+        const navObserverOptions = {
+            root: null,
+            rootMargin: '-20% 0px -75% 0px', // Adjusted to trigger accurately when scrolling
+            threshold: 0
+        };
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.nav-item').forEach(link => {
+                        link.classList.remove('nav-active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('nav-active');
+                        }
+                    });
+                }
+            });
+        }, navObserverOptions);
+
+        // Observe all sections with an ID
+        document.querySelectorAll('section[id]').forEach(section => {
+            navObserver.observe(section);
+        });
     </script>
 </body>
 </html>
